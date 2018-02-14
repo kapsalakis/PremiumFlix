@@ -1,0 +1,88 @@
+<script>
+  document.addEventListener('turbolinks:load', function () {
+    $("#videoPlayer").toggle();
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    var icon = $('.play_button');
+    icon.click(function() {
+      $(".col-md-4").toggle(400);
+      var url ="http://localhost:83/<%= @movie.url %>/manifest.mpd";
+      var video = document.querySelector("#videoPlayer");
+      var player = dashjs.MediaPlayer().create();
+      player.initialize(video, url, true);
+      $("#videoPlayer").toggle(600);
+    });
+  });
+</script>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+    <video id="videoPlayer" controls="true"></video>
+      <div class="col-md-4">
+      <% movie_image = MovieImage.find_by(movie_id: @movie.id) %>
+        <% if !movie_image.blank? %>
+          <div>
+            <%= image_tag movie_image.image.url(:medium) %>
+            <img src="#" alt="" class="play_button"/>
+          </div>
+        <% end %>
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><strong>Title:</td>
+                <td><%= @movie.title %></td>
+              </tr>
+              <tr>
+                <td><strong>Description:</td>
+                <td><%= @movie.description %></td>
+              </tr>
+              <tr>
+                <td><strong>Length:</td>
+                <td><%= @movie.movie_length %></td>
+              </tr>
+              <tr>
+                <td><strong>Director:</td>
+                <td><%= @movie.director %></td>
+              </tr>
+              <tr>
+                <td><strong>Rating:</td>
+                <td><%= @movie.rating %></td>
+              </tr>
+            </tbody>
+          </table>
+          write review
+        </div>
+      </div>
+      <div class="col-md-7 col-md-offset-1">
+        <h1 class="review_title"><%= @movie.title %></h1>
+        <p><%= @movie.description %></p>
+
+        <% if @reviews.blank? %>
+          <h3>No reviews just yet, write first!</h3>
+          write review button
+        <% else %>
+        <% @reviews.each do |review| %>
+          <div class="reviews">
+            <div class="star-rating" data-score=<%= review.rating%> ></div>
+            <p><%= review.comment %></p>
+          </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script>

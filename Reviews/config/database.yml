@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: reviews-db
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: reviews_development
+
+
+test:
+  <<: *default
+  database: reviews_test

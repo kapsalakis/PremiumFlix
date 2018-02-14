@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Movie Images</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Movie</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movie_images.each do |movie_image| %>
+      <tr>
+        <td><%= movie_image.movie %></td>
+        <td><%= link_to 'Show', movie_image %></td>
+        <td><%= link_to 'Edit', edit_movie_image_path(movie_image) %></td>
+        <td><%= link_to 'Destroy', movie_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Movie Image', new_movie_image_path %>

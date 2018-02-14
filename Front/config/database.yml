@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: front-db
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: front_development
+
+
+test:
+  <<: *default
+  database: front_test

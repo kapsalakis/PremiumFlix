@@ -1,0 +1,46 @@
+version: '3'
+services:
+  movies-db:
+    image: postgres
+  movies:
+    build: Movies
+    command: bundle exec rails s -p 2515 -b '0.0.0.0'
+    volumes:
+      - ./Movies:/movies
+    ports:
+      - "2515:2515"
+    depends_on:
+      - movies-db
+  front-db:
+    image: postgres
+  front:
+    build: Front
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./Front:/front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - front-db
+    environment:
+      - STRIPE_PUBLISHABLE_KEY=pk_test_68ChGUSjAzCFJkRlhhACRNOM
+      - STRIPE_SECRET_KEY=sk_test_EVBQ6ypnzK1jL3XggxzoP7ng
+  reviews-db:
+    image: postgres
+  reviews:
+    build: Reviews
+    command: bundle exec rails s -p 2617 -b '0.0.0.0'
+    volumes:
+      - ./Reviews:/reviews
+    ports:
+      - "2617:2617"
+    depends_on:
+      - reviews-db
+  videoserver:
+    build: VideoServer
+    volumes:
+      - ./VideoServer/data:/data
+    links:
+      - front
+    ports:
+      - "83:80"
