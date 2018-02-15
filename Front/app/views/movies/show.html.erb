@@ -65,12 +65,19 @@
           <h3>No reviews just yet, write first!</h3>
           write review button
         <% else %>
-        <% @reviews.each do |review| %>
-          <div class="reviews">
-            <div class="star-rating" data-score=<%= review.rating%> ></div>
-            <p><%= review.comment %></p>
-          </div>
-        <% end %>
+          <% count = 0 %>
+          <% @reviews.each do |review| %>
+            <% if review.movie_id == @movie.id.to_s %>
+              <div class="reviews">
+                <div class="star-rating" data-score=<%= review.rating%> ></div>
+                <p><%= review.user_post %></p>
+              </div>
+              <% count = 1 %>
+            <% end %>
+          <% end %>
+          <% if count<1 %>
+            <h3>No reviews just yet, write first!</h3>
+          <% end %>
         <% end %>
       </div>
     </div>

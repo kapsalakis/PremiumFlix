@@ -19,16 +19,18 @@ class MoviesController < ApplicationController
     end
 
     def get_reviews
-      @reviews=Review.where(movie_id: @movie.id)
+      @reviews=Review.all
     end
 
     def get_movies
-
-      @movies=Movie.all
-
+      begin
+        @movies=Movie.all
+      rescue ActiveResource::ResourceNotFound, ActiveResource::ConnectionError, StandardError
+        @movies_error="Service is down!"
+      rescue ActiveResource::ResourceConflict, ActiveResource::ResourceInvalid
+        @movies_error="Server error!"
+      end
     end
-
-    private
 
     def check_subscription
       if user_signed_in?

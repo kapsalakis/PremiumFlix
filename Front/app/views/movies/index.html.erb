@@ -7,16 +7,20 @@
 <% end %>
 
 <div class="row">
-  <% @movies.each do |movie| %>
-    <% movie_image = MovieImage.find_by(movie_id: movie.id) %>
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
-        <% if !movie_image.blank? %>
-          <%= link_to image_tag(movie_image.image.url(:medium)), movie %>
-        <% else %>
-          <%= link_to movie.title, movie %>
-        <% end %>
+  <% if @movies_error.present? %>
+    <h1><%=@movies_error%></h1>
+  <% else %>
+    <% @movies.each do |movie| %>
+      <% movie_image = MovieImage.find_by(movie_id: movie.id) %>
+      <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+          <% if !movie_image.blank? %>
+            <%= link_to image_tag(movie_image.image.url(:medium)), movie %>
+          <% else %>
+            <%= link_to movie.title, movie %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
