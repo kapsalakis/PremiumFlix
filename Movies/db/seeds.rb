@@ -5,4 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Movie.create([{title:"Rusty Truck", description:"A rusty truck!", movie_length:"12 seconds!", direction:"kapsa", url:"rustytruck"}, {title:"Love Boat", description:"A boat of love!", movie_length:"N/A", direction:"kapsa", url:"LoveBoat"}])
+Movie.create([{title:"Rusty Truck", description:"A rusty truck!", movie_length:"12 seconds!", director:"kapsa", url:"rustytruck"}, {title:"Love Boat", description:"A boat of love!", movie_length:"N/A", director:"kapsa", url:"LoveBoat"}])
