@@ -61,8 +61,8 @@
         <h1 class="review_title"><%= @movie.title %></h1>
         <p><%= @movie.description %></p>
 
-        <% if @movies_error.present? %>
-          <h1><%=@movies_error%></h1>
+        <% if @reviews_error.present? %>
+          <h1><%=@reviews_error%></h1>
         <% else %>
           <% if @reviews.blank? %>
             <h3>No reviews just yet, write first!</h3>
