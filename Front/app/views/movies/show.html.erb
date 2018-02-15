@@ -61,28 +61,32 @@
         <h1 class="review_title"><%= @movie.title %></h1>
         <p><%= @movie.description %></p>
 
-        <% if @reviews.blank? %>
-          <h3>No reviews just yet, write first!</h3>
-          write review button
+        <% if @movies_error.present? %>
+          <h1><%=@movies_error%></h1>
         <% else %>
-          <% count = 0 %>
-          <% @reviews.each do |review| %>
-            <% if review.movie_id == @movie.id.to_s %>
-              <div class="reviews">
-                <div class="star-rating" data-score=<%= review.rating%> ></div>
-                <p><%= review.user_post %></p>
-              </div>
-              <% count = 1 %>
+          <% if @reviews.blank? %>
+            <h3>No reviews just yet, write first!</h3>
+            write review button
+          <% else %>
+            <% count = 0 %>
+            <% @reviews.each do |review| %>
+              <% if review.movie_id == @movie.id.to_s %>
+                <div class="reviews">
+                  <div class="star-rating" data-score=<%= review.rating%> ></div>
+                  <p><%= review.user_post %></p>
+                </div>
+                <% count = 1 %>
+              <% end %>
+            <% end %>
+            <% if count<1 %>
+              <h3>No reviews just yet, write first!</h3>
             <% end %>
           <% end %>
-          <% if count<1 %>
-            <h3>No reviews just yet, write first!</h3>
-          <% end %>
-        <% end %>
+        <% end%>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 <script>
   $('.star-rating').raty({

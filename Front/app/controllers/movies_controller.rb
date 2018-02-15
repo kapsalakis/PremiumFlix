@@ -19,14 +19,20 @@ class MoviesController < ApplicationController
     end
 
     def get_reviews
-      @reviews=Review.all
+      begin
+        @reviews=Review.all
+      rescue ActiveResource::ResourceNotFound, ActiveResource::ConnectionError, StandardError
+        @reviews_error="Reviews service is down!"
+      rescue ActiveResource::ResourceConflict, ActiveResource::ResourceInvalid
+        @reviews_error="Server error!"
+      end
     end
 
     def get_movies
       begin
         @movies=Movie.all
       rescue ActiveResource::ResourceNotFound, ActiveResource::ConnectionError, StandardError
-        @movies_error="Service is down!"
+        @movies_error="Movies service is down!"
       rescue ActiveResource::ResourceConflict, ActiveResource::ResourceInvalid
         @movies_error="Server error!"
       end
