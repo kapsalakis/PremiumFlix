@@ -8,7 +8,7 @@
     var icon = $('.play_button');
     icon.click(function() {
       $(".col-md-4").toggle(400);
-      var url ="http://localhost:83/<%= @movie.url %>/manifest.mpd";
+      var url ="http://35.229.202.210:83/<%= @movie.url %>/manifest.mpd";
       var video = document.querySelector("#videoPlayer");
       var player = dashjs.MediaPlayer().create();
       player.initialize(video, url, true);
