@@ -1,6 +1,6 @@
 # Version: 0.0.3
 FROM ubuntu:16.04
-MAINTAINER Paris Messios "pmessios@dundee.ac.uk"
+
 RUN apt-get update
 RUN apt-get install -y nginx
 COPY nginx.conf /etc/nginx

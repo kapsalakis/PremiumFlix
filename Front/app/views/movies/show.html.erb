@@ -66,20 +66,21 @@
         <% else %>
           <% if @reviews.blank? %>
             <h3>No reviews just yet, write first!</h3>
-            write review button
+            <%= link_to "Write Review", new_review_path(movie_id: @movie.id), class: "btn btn-danger" %>
           <% else %>
-            <% count = 0 %>
+            <% counter = 0 %>
             <% @reviews.each do |review| %>
               <% if review.movie_id == @movie.id.to_s %>
                 <div class="reviews">
                   <div class="star-rating" data-score=<%= review.rating%> ></div>
                   <p><%= review.user_post %></p>
                 </div>
-                <% count = 1 %>
+                <% counter = 1 %>
               <% end %>
             <% end %>
-            <% if count<1 %>
+            <% if counter < 1 %>
               <h3>No reviews just yet, write first!</h3>
+              <%= link_to "Write Review", new_review_path(movie_id: @movie.id), class: "btn btn-danger" %>
             <% end %>
           <% end %>
         <% end%>
